@@ -13,6 +13,22 @@ class Repository {
         const file = new File(name, content);
         this.workingDirectory.push(file);
     }
+
+    updateFile(name, content){  // touch
+        const file = this.findFile(name);
+        file.content = content;
+    }
+
+    findFile(fileName){
+        const length = this.workingDirectory.length;
+
+        for(let i = 0; i < length; i++){
+            if(this.workingDirectory[i].name == fileName){
+                return this.workingDirectory[i];
+            }
+        }
+    }
+
 }
 
 export default Repository;
