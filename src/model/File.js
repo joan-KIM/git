@@ -18,6 +18,8 @@ class File{
     updateStatus(status){
         this.status = status;
     }
+
+    
 }
 
 export default File;

@@ -1,4 +1,5 @@
 import File from "./File.js";
+import Blob from "./Blob.js";
 
 // 객체 모양틀
 class Repository {
@@ -7,6 +8,7 @@ class Repository {
         this.head = null;
         this.name = name;
         this.workingDirectory = [];    // 배열 : 순서대로 가져올 수 있다, 객체 : key값으로 가져올 수 있다
+        this.stagingArea = [];
     }
 
     createFile(name, content){
@@ -16,7 +18,7 @@ class Repository {
 
     updateFile(name, content){  // touch
         const file = this.findFile(name);
-        file.content = content;
+        file.updateContent(content);
     }
 
     findFile(fileName){
@@ -28,6 +30,14 @@ class Repository {
             }
         }
     }
+
+    createBlob(file){
+        const fileId = file.id;
+        const content = file.content;
+
+        const blob = new Blob(fileId, content);
+    }
+   
 
 }
 
