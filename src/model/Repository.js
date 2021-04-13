@@ -21,7 +21,7 @@ class Repository {
         file.updateContent(content);
     }
 
-    findFile(fileName){
+    findFile(fileName){     // 동일한 이름을 가진 파일 찾기
         const length = this.workingDirectory.length;
 
         for(let i = 0; i < length; i++){
@@ -36,9 +36,29 @@ class Repository {
         const content = file.content;
 
         const blob = new Blob(fileId, content);
+        return blob;
     }
-   
 
+    staging(){
+        // 1. working directory에서 변화된 파일 찾기
+        // 2. blob으로 생성하기
+        // 3. blob을 staging area에 넣기
+        // 4. 변화된 파일을 staged로 변경
+        const length = this.workingDirectory.length;
+        const blobs = [];
+
+        for(let i = 0; i < length; i++){
+            if(this.workingDirectory[i].isModified()){
+                blobs.push(this.createBlob(this.workingDirectory[i]));
+            }
+        }
+
+        return blobs;
+    }
+    
+    
+    
 }
+
 
 export default Repository;

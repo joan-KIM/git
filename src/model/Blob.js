@@ -4,10 +4,6 @@ class Blob{
         this.content = content;
     }
 
-    createBlob(file){
-        this.fileId = file.id;
-        this.content = file.content;
-    }
 }
 
 export default Blob;

@@ -19,7 +19,12 @@ class File{
         this.status = status;
     }
 
-    
+    isModified() {
+        if (this.status === UNTRACKED || this.status === MODIFIED) {
+            return true;
+        }
+        return false;
+    }    
 }
 
 export default File;
