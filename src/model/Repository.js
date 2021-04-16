@@ -1,5 +1,6 @@
 import File from "./File.js";
 import Blob from "./Blob.js";
+import { STAGED } from "../constants/status.js";
 
 // 객체 모양틀
 class Repository {
@@ -45,18 +46,35 @@ class Repository {
         // 3. blob을 staging area에 넣기
         // 4. 변화된 파일을 staged로 변경
         const length = this.workingDirectory.length;
-        const blobs = [];
 
         for(let i = 0; i < length; i++){
             if(this.workingDirectory[i].isModified()){
-                blobs.push(this.createBlob(this.workingDirectory[i]));
+                const blob = this.createBlob(this.workingDirectory[i]);
+                this.inputStagingArea(blob);
+                updateStatus(STAGED);
+            }
+        }
+        
+    }
+    
+    inputStagingArea(blob){
+        const length = this.stagingArea.length;
+
+        if(this.stagingArea.length == 0){
+            this.stagingArea.push(blob);
+            return;
+        }
+
+        for(let i = 0; i < length; i++){
+            if(this.stagingArea[i].fileId == blob.fileId){
+                this.stagingArea.splice(i, 1);
+                this.stagingArea.push(blob);
+                return;
             }
         }
 
-        return blobs;
-    }
-    
-    
+        this.stagingArea.push(blob);
+    }    
     
 }
 
