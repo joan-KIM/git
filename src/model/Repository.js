@@ -51,7 +51,7 @@ class Repository {
             if(this.workingDirectory[i].isModified()){
                 const blob = this.createBlob(this.workingDirectory[i]);
                 this.inputStagingArea(blob);
-                updateStatus(STAGED);
+                this.workingDirectory[i].updateStatus(STAGED);
             }
         }
         
@@ -77,6 +77,5 @@ class Repository {
     }    
     
 }
-
 
 export default Repository;

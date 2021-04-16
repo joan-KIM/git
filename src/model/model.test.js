@@ -61,7 +61,7 @@ const repository = new Repository("web");    // constructor() 실행
 (() => {
   const blob = new Blob("2222", "소르본 철학 수업");
   
-  test(repository).it('inputStagingArea 함수 테스트2', () => {
+  test(repository).it('inputStagingArea 함수 테스트3', () => {
     repository.inputStagingArea(blob);
   }).toEqual({
     head: null,
@@ -79,15 +79,29 @@ const repository = new Repository("web");    // constructor() 실행
   });
 })();
 
+(() => {
+  test(repository).it('staging 함수 테스트1', () => {
+    repository.staging();
+  }).toEqual({
+    head: null,
+    name: 'web',
+    workingDirectory: [{
+      name: '파일명',
+      content: '파일내용',
+      id: null,
+      status: 'staged'
+    }],
+    stagingArea: [ 
+      { fileId:"1111", content:"장기하 산문집 - 상관없는거 아닌가?" }, 
+      { fileId:"2222", content:"소르본 철학 수업" }, 
+      { fileId:null, content:"파일내용" }
+    ]
+  });
+})();
 
 
 
 
-repository.createFile("파일명2", "파일내용2");
-repository.createFile("2020 연말정산", "환급 : 10만원");
-
-repository.updateFile("2020 연말정산", "환급액 : 없음");
-repository.updateFile("파일명2", "소르본 철학수업");
 
 repository.createFile('', '');
 const file = repository.findFile('')
