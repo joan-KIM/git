@@ -1,15 +1,19 @@
 import File from "./File.js";
 import Blob from "./Blob.js";
 import { STAGED } from "../constants/status.js";
+import Branch from "./Branch.js";
 
 // 객체 모양틀
 class Repository {
     // 객체 안의 함수는 function 안써줘도 됨 = 메소드
     constructor(name){  // return this; -> this? Repository가 만드는 객체
-        this.head = null;
+        this.head = "master";
         this.name = name;
         this.workingDirectory = [];    // 배열 : 순서대로 가져올 수 있다, 객체 : key값으로 가져올 수 있다
         this.stagingArea = [];
+
+        const branch = new Branch("master", null);
+        this.branches = [ branch ];
     }
 
     createFile(name, content){
@@ -85,7 +89,7 @@ class Repository {
 
         this.stagingArea.push(blob);
     }    
-    
+
 }
 
 export default Repository;
