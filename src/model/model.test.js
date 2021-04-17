@@ -98,7 +98,7 @@ const repository = new Repository("web");    // constructor() 실행
 })();
 
 (() => {
-  test(repository).it('staging 함수 테스트2', () => {
+  test(repository).it('staging 함수 테스트2 - git add <파일이름>', () => {
     repository.updateFile("파일명", "마이크로폰 핸드북");
     repository.staging("파일명");
   }).toEqual({

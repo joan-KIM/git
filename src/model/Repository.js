@@ -40,6 +40,7 @@ class Repository {
         return blob;
     }
 
+    // 여러개 파일 add? git add <파일이름> <파일이름>
     staging(fileName){
         // 1. working directory에서 변화된 파일 찾기
         // 2. blob으로 생성하기
