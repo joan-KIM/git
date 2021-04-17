@@ -40,13 +40,22 @@ class Repository {
         return blob;
     }
 
-    staging(){
+    staging(fileName){
         // 1. working directory에서 변화된 파일 찾기
         // 2. blob으로 생성하기
         // 3. blob을 staging area에 넣기
         // 4. 변화된 파일을 staged로 변경
         const length = this.workingDirectory.length;
 
+        // add <파일이름>
+        if(fileName){
+            const file = this.findFile(fileName);
+            const blob = this.createBlob(file);
+            this.inputStagingArea(blob);
+            file.updateStatus(STAGED);
+        }
+
+        // add .
         for(let i = 0; i < length; i++){
             if(this.workingDirectory[i].isModified()){
                 const blob = this.createBlob(this.workingDirectory[i]);
