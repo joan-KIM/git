@@ -1,4 +1,4 @@
-import {UNTRACKED, MODIFIED} from "../constants/status.js";
+import {UNTRACKED, MODIFIED, STAGED} from "../constants/status.js";
 
 class File{
     constructor(name, content) {
@@ -25,6 +25,13 @@ class File{
         }
         return false;
     }    
+
+    isStaged(){
+        if (this.status === STAGED){
+            return true;
+        }
+        return false;
+    }
 }
 
 export default File;

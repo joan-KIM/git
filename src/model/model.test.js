@@ -137,6 +137,29 @@ const repository = new Repository("web");    // constructor() 실행
   });
 })();
 
+(() => {
+  test(repository).it("commit 함수 테스트", () => {
+    repository.commit("책 내용 입력");
+  }).toEqual({
+    head: "master",
+    name: "web",
+    workingDirectory: [{
+      name: "파일명",
+      content: "마이크로폰 핸드북",
+      id: null,
+      status: "staged"
+    }],
+    stagingArea: [ 
+      { fileId:"1111", content:"장기하 산문집 - 상관없는거 아닌가?" }, 
+      { fileId:"2222", content:"소르본 철학 수업" }, 
+      { fileId:null, content:"마이크로폰 핸드북" }
+    ],
+    branches : [ { name: "master", commitId : null } ],
+    commits : []
+  });
+})();
+
+console.log(repository.commits[0].tree);
 
 
 const file = repository.findFile('')

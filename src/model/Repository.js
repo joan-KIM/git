@@ -1,7 +1,8 @@
 import File from "./File.js";
 import Blob from "./Blob.js";
-import { STAGED } from "../constants/status.js";
 import Branch from "./Branch.js";
+import Commit from "./Commit.js";
+import { COMMITTED, STAGED } from "../constants/status.js";
 
 // 객체 모양틀
 class Repository {
@@ -14,6 +15,8 @@ class Repository {
 
         const branch = new Branch("master", null);
         this.branches = [ branch ];
+
+        this.commits = [];
     }
 
     createFile(name, content){
@@ -46,10 +49,6 @@ class Repository {
 
     // 여러개 파일 add? git add <파일이름> <파일이름>
     staging(fileName){
-        // 1. working directory에서 변화된 파일 찾기
-        // 2. blob으로 생성하기
-        // 3. blob을 staging area에 넣기
-        // 4. 변화된 파일을 staged로 변경
         const length = this.workingDirectory.length;
 
         // add <파일이름>
@@ -89,6 +88,24 @@ class Repository {
 
         this.stagingArea.push(blob);
     }    
+
+    commit(message){
+        const commit = new Commit(message);
+        const branch = this.findBranch(this.head);
+
+        commit.preCommitId = branch.commitId;
+        commit.tree = this.stagingArea;
+        branch.commitId = commit.id;
+
+        this.commits.push(commit);
+
+        const file = this.workingDirectory.find(file => file.isStaged());
+        file.updateStatus(COMMITTED);
+    }
+
+    findBranch(branchName){
+        return this.branches.find( branch => branch.name = branchName);
+    }
 
 }
 
