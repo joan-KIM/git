@@ -38,23 +38,15 @@ class Repository {
             }
         }
     }
-
-    createBlob(file){
-        const fileId = file.id;
-        const content = file.content;
-
-        const blob = new Blob(fileId, content);
-        return blob;
-    }
-
+    
     // 여러개 파일 add? git add <파일이름> <파일이름>
     staging(fileName){
         const length = this.workingDirectory.length;
-
+        
         // add <파일이름>
         if(fileName){
             const file = this.findFile(fileName);
-            const blob = this.createBlob(file);
+            const blob = createBlob(file);
             this.inputStagingArea(blob);
             file.updateStatus(STAGED);
         }
@@ -62,7 +54,7 @@ class Repository {
         // add .
         for(let i = 0; i < length; i++){
             if(this.workingDirectory[i].isModified()){
-                const blob = this.createBlob(this.workingDirectory[i]);
+                const blob = createBlob(this.workingDirectory[i]);
                 this.inputStagingArea(blob);
                 this.workingDirectory[i].updateStatus(STAGED);
             }
@@ -72,12 +64,12 @@ class Repository {
     
     inputStagingArea(blob){
         const length = this.stagingArea.length;
-
+        
         if(this.stagingArea.length == 0){
             this.stagingArea.push(blob);
             return;
         }
-
+        
         for(let i = 0; i < length; i++){
             if(this.stagingArea[i].fileId == blob.fileId){
                 this.stagingArea.splice(i, 1);
@@ -85,36 +77,47 @@ class Repository {
                 return;
             }
         }
-
+        
         this.stagingArea.push(blob);
     }    
-
+    
     commit(message){
         const commit = new Commit(message);
         const branch = this.findBranch(this.head);
-
+        
         commit.preCommitId = branch.commitId;
         commit.tree = this.stagingArea.slice();
         branch.commitId = commit.id;
-
+        
         this.commits.push(commit);
-
+        
         const file = this.workingDirectory.find(file => file.isStaged());
         file.updateStatus(COMMITTED);
     }
-
+    
     findBranch(branchName){
         return this.branches.find( branch => branch.name = branchName);
     }
-
-    createBranch(name){
-        const branch = new Branch(name);
-
+    
+    createBranch(branchName){
+        const branch = new Branch(branchName);
+        
         const commitId = this.findBranch(this.head).commitId;
         branch.commitId = commitId;
         this.branches.push(branch);
     }
-
+    
+    checkoutBranch(branchName){
+        this.head = branchName;
+    }
 } 
+
+function createBlob(file){
+        const fileId = file.id;
+        const content = file.content;
+
+        const blob = new Blob(fileId, content);
+        return blob;
+}
 
 export default Repository;
