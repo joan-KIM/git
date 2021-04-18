@@ -162,10 +162,31 @@ const repo2 = new Repository("test2");
       { fileId:null, content:"장기하, 전진, 한강, 장혜영" }
     ],
     branches : [ { name: "master", commitId : null } ],
-    commits : [  ]
+    commits : [ ]
   });
 })();
 
+(() => {
+  test(repo2).it("branch 생성 테스트", () => {
+    repo2.createBranch("issue1");
+  }).toEqual({
+    head: "master",
+    name: "test2",
+    workingDirectory: [{
+      name: "file 1",
+      content: "장기하, 전진, 한강, 장혜영",
+      id: null,
+      status: "committed"
+    }],
+    stagingArea: [ 
+      { fileId:null, content:"장기하, 전진, 한강, 장혜영" }
+    ],
+    branches : [
+       { name: "master", commitId : null },
+       { name: "issue1", commitId : null } ],
+    commits : []
+  });
+})();
 
 console.log(repo2.commits[0].tree);
 console.log(repo2.commits[1].tree);

@@ -110,11 +110,11 @@ class Repository {
     createBranch(name){
         const branch = new Branch(name);
 
-        commitId = this.findBranch(this.head).commitId;
+        const commitId = this.findBranch(this.head).commitId;
         branch.commitId = commitId;
         this.branches.push(branch);
     }
 
-}
+} 
 
 export default Repository;
