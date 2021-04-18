@@ -94,7 +94,7 @@ class Repository {
         const branch = this.findBranch(this.head);
 
         commit.preCommitId = branch.commitId;
-        commit.tree = this.stagingArea;
+        commit.tree = this.stagingArea.slice();
         branch.commitId = commit.id;
 
         this.commits.push(commit);
@@ -105,6 +105,14 @@ class Repository {
 
     findBranch(branchName){
         return this.branches.find( branch => branch.name = branchName);
+    }
+
+    createBranch(name){
+        const branch = new Branch(name);
+
+        commitId = this.findBranch(this.head).commitId;
+        branch.commitId = commitId;
+        this.branches.push(branch);
     }
 
 }

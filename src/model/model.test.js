@@ -2,6 +2,7 @@ import Repository from "./Repository.js"
 import Blob from "./Blob.js";
 import {test} from './../utils/test.js';
 
+/*
 const repository = new Repository("web");    // constructor() 실행
 // IIFE > 검색해보세요
 (() => {
@@ -124,46 +125,52 @@ const repository = new Repository("web");    // constructor() 실행
   });
 })();
 
+*/
+
+const repo2 = new Repository("test2");
+
 (() => {
-  const repo2 = new Repository("test2");
   test(repo2).it('repository branches 초기화 테스트', () => {
-    
   }).toEqual({
     head: "master",
     name: "test2",
     workingDirectory: [],
     stagingArea: [],
-    branches : [ { name: "master", commitId : null } ]
-  });
-})();
-
-(() => {
-  test(repository).it("commit 함수 테스트", () => {
-    repository.commit("책 내용 입력");
-  }).toEqual({
-    head: "master",
-    name: "web",
-    workingDirectory: [{
-      name: "파일명",
-      content: "마이크로폰 핸드북",
-      id: null,
-      status: "staged"
-    }],
-    stagingArea: [ 
-      { fileId:"1111", content:"장기하 산문집 - 상관없는거 아닌가?" }, 
-      { fileId:"2222", content:"소르본 철학 수업" }, 
-      { fileId:null, content:"마이크로폰 핸드북" }
-    ],
     branches : [ { name: "master", commitId : null } ],
     commits : []
   });
 })();
 
-console.log(repository.commits[0].tree);
+(() => {
+  test(repo2).it("commit 함수 테스트", () => {
+    repo2.createFile("file 1", "전진, 한강, 장혜영");
+    repo2.staging();
+    repo2.commit("작가 입력");
+    repo2.updateFile("file 1", "장기하, 전진, 한강, 장혜영");
+    repo2.staging();
+    repo2.commit("작가 추가");
+  }).toEqual({
+    head: "master",
+    name: "test2",
+    workingDirectory: [{
+      name: "file 1",
+      content: "장기하, 전진, 한강, 장혜영",
+      id: null,
+      status: "committed"
+    }],
+    stagingArea: [ 
+      { fileId:null, content:"장기하, 전진, 한강, 장혜영" }
+    ],
+    branches : [ { name: "master", commitId : null } ],
+    commits : [  ]
+  });
+})();
 
 
-const file = repository.findFile('')
-const result = {name:'', content: '', id: null, status: 'untracked'};
+console.log(repo2.commits[0].tree);
+console.log(repo2.commits[1].tree);
+// const file = repository.findFile('')
+// const result = {name:'', content: '', id: null, status: 'untracked'};
 
-test(repository).it("")
+// test(repository).it("")
 // console.log(file == result)
