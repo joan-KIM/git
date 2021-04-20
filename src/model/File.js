@@ -1,4 +1,5 @@
 import {UNTRACKED, MODIFIED, STAGED} from "../constants/status.js";
+import Blob from "./Blob.js"
 
 class File{
     constructor(name, content) {
@@ -31,6 +32,18 @@ class File{
             return true;
         }
         return false;
+    }
+
+    createBlob() {
+        return new Blob(this.id, this.content)
+    }
+
+    isSameFileName(name){
+        return this.name === name;
+    }
+
+    isSameFile(blob){
+        return this.id === blob.id;
     }
 }
 

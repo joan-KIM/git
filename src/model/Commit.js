@@ -1,10 +1,14 @@
 class Commit{
-    constructor(message){
-        this.message = message;
-        this.date = null;
+    constructor(message, preCommitId, tree){
         this.id = null;
-        this.preCommitId = null;
-        this.tree = [];
+        this.date = new Date();
+        this.message = message;
+        this.preCommitId = preCommitId;
+        this.tree = tree;
+    }
+
+    getCommitId(){
+        return this.id;
     }
 }
 

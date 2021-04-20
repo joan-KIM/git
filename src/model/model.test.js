@@ -2,8 +2,12 @@ import Repository from "./Repository.js"
 import Blob from "./Blob.js";
 import {test} from './../utils/test.js';
 
-/*
 const repository = new Repository("web");    // constructor() 실행
+test().it('add file', () => {
+  const file1 = new File('hhh', 'ggg');
+  repository.staging([file1])
+})
+/*
 // IIFE > 검색해보세요
 (() => {
   test(repository).it('createFile test 1', () => {
@@ -103,6 +107,7 @@ const repository = new Repository("web");    // constructor() 실행
   });
 })();
 
+
 (() => {
   test(repository).it('staging 함수 테스트2 - git add <파일이름>', () => {
     repository.updateFile("파일명", "마이크로폰 핸드북");
@@ -124,9 +129,8 @@ const repository = new Repository("web");    // constructor() 실행
     branches : [ { name: "master", commitId : null } ]
   });
 })();
-
 */
-
+// /*
 const repo2 = new Repository("test2");
 
 (() => {
@@ -167,8 +171,9 @@ const repo2 = new Repository("test2");
 })();
 
 (() => {
-  test(repo2).it("branch 생성 테스트", () => {
+  test(repo2).it("branch 생성/checkout 테스트", () => {
     repo2.createBranch("issue1");
+    repo2.checkoutBranch("issue1");
   }).toEqual({
     head: "master",
     name: "test2",
@@ -183,7 +188,8 @@ const repo2 = new Repository("test2");
     ],
     branches : [
        { name: "master", commitId : null },
-       { name: "issue1", commitId : null } ],
+       { name: "issue1", commitId : null } 
+    ],
     commits : []
   });
 })();
@@ -195,3 +201,4 @@ console.log(repo2.commits[1].tree);
 
 // test(repository).it("")
 // console.log(file == result)
+// */
