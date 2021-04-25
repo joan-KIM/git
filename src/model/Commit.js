@@ -1,6 +1,8 @@
+import { guid } from "./uuid";
+
 class Commit{
     constructor(message, preCommitId, tree){
-        this.id = null;
+        this.id = guid();
         this.date = new Date();
         this.message = message;
         this.preCommitId = preCommitId;

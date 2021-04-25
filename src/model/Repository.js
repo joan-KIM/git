@@ -1,6 +1,6 @@
 import Commit from "./Commit.js";
 import StagingArea from "./StagingArea.js";
-import BranchList from "./BranchList";
+import BranchList from "./BranchList.js";
 import WorkingDirectory from "./WorkingDirectory.js";
 
 class Repository {

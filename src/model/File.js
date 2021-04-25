@@ -1,11 +1,12 @@
 import {UNTRACKED, MODIFIED, STAGED} from "../constants/status.js";
-import Blob from "./Blob.js"
+import {guid} from "./uuid.js";
+import Blob from "./Blob.js";
 
 class File{
     constructor(name, content) {
         this.name = name;
         this.content = content;
-        this.id = null;
+        this.id = guid();
         this.status = UNTRACKED;
     }
 

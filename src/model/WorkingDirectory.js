@@ -1,3 +1,4 @@
+import File from "./File.js";
 import { COMMITTED } from "../constants/status.js";
 
 class WorkingDirectory extends Array {
