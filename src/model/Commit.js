@@ -1,4 +1,4 @@
-import { guid } from "./uuid";
+import { guid } from "../utils/uuid.js";
 
 class Commit{
     constructor(message, preCommitId, tree){

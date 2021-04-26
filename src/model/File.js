@@ -1,5 +1,5 @@
 import {UNTRACKED, MODIFIED, STAGED} from "../constants/status.js";
-import {guid} from "./uuid.js";
+import {guid} from "../utils/uuid.js";
 import Blob from "./Blob.js";
 
 class File{

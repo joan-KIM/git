@@ -1,5 +1,6 @@
-import Repository from "./Repository.js"
-import { test } from './../utils/test.js';
+import Repository from "./Repository.js";
+import File from "./File.js";
+
 
 /*
 const repository = new Repository("web");  
@@ -28,5 +29,16 @@ test().it('add file', () => {
 */
 
 const repo = new Repository("git");
-repo.createFile("git", "naver");
+repo.createFile("file1", "content1");
+repo.createFile("file2", "content2");
+repo.createFile("file3", "content3");
+repo.createFile("file3", "파일명 같을 때?");
+repo.updateFile("file3", "파일 업데이트");    // 먼저 발견된 파일만 수정됨...
+
+const f1 = new File("파일1", "술탄디스코");
+const f2 = new File("파일2", "빈츠카페모카");
+const f3 = new File("파일3", "윈터워머");
+
+repo.staging([f1,f2,f3]);
+
 console.log(repo);

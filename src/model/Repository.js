@@ -22,7 +22,8 @@ class Repository {
     }
     
     staging(files){
-        files.forEach(this.stagingArea.staging);
+        files.forEach(this.stagingArea.staging.bind(this.stagingArea));
+        // files.forEach(file => this.stagingArea.staging(file));
     }
 
     commit(message){

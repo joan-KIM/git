@@ -10,7 +10,7 @@ class StagingArea extends Array{
     }
 
     deleteBlob(blob){
-        const index = this.findIndex(blob.isSameBlob);
+        const index = this.findIndex(blob.isSameBlob.bind(blob));
 
         if(index > -1){
             this.splice(index, 1);
