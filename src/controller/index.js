@@ -18,6 +18,7 @@ class Controller{
         else if (action !== ACTION.GIT_INIT && !this.model.repository) {
             this.view.printError('레파지토리를 만들어야합니다.');
         } else {
+            
             switch(action) {
                 case ACTION.GIT_INIT:
                     this.model.createRepository(...args);
@@ -26,7 +27,7 @@ class Controller{
                     this.model.repository.staging(Parser.fileParser(args, this.model.repository.workingDirectory));
                     break;
                 case ACTION.GIT_COMMIT:
-                    this.model.commit(args);
+                    this.model.repository.commit(args.join(" "));
                     break;
                 case ACTION.GIT_BRANCH:
                     this.model.repository.createBranch(args);
@@ -35,14 +36,21 @@ class Controller{
                     this.model.repository.checkoutBranch(args);
                     break;
                 case ACTION.NEW_FILE:
-                    this.model.createFile(args);
+                    this.model.createFile(args[0], args.slice(1).join(" "));
                     break;
                 case ACTION.TOUCH_FILE:
-                    this.model.updateFile(args);
+                    this.model.updateFile(args[0], args.slice(1).join(" "));
                     break;
                 case ACTION.PRINT_LOG:
+                    const commitId = this.model.commitIdOfBranch(this.model.repository.head);
+                    this.view.printLog(commitId, this.model.repository.commits);
+                    break;
                 case ACTION.PRINT_STATUS:
-                case ACTION.PRINT_BRANCH:
+                    this.view.printStatus(this.model.repository.workingDirectory);
+                    break;
+                case ACTION.PRINT_BRANCH:      
+                    this.view.printBranch(this.model.repository.branchList);
+                    break;
                 
             }
         }

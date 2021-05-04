@@ -11,6 +11,9 @@ class Repository {
         this.stagingArea = new StagingArea();
         this.branchList = new BranchList();
         this.commits = [];
+        Array.prototype.getCommitById = function(id) {
+            return this.find(commit => commit.id === id);
+        }
     }
 
     createFile(name, content) {
@@ -44,7 +47,6 @@ class Repository {
     createBranch(branchName){
         this.branchList.addBranch(branchName, this.head);
     }
-    
 } 
 
 export default Repository;

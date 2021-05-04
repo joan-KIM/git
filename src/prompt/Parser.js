@@ -4,7 +4,7 @@ class Parser{
     static toAction(command, isPrint) {
         if (isPrint) {
             switch(command) {
-                case COMMAND.STATUS: return ACTION.PRINT_LOG;
+                case COMMAND.STATUS: return ACTION.PRINT_STATUS;
                 case COMMAND.LOG: return ACTION.PRINT_LOG;
                 case COMMAND.BRANCH: return ACTION.PRINT_BRANCH;
                 default: 

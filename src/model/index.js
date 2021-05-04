@@ -9,17 +9,18 @@ class Model{
         this.repository = new Repository(name);
     }
 
-    createFile([name, ...content]){
-        this.repository.createFile(name, content.join(" "));
+    createFile(name, content){
+        this.repository.createFile(name, content);
     }
 
-    updateFile([name, ...content]){
-        this.repository.updateFile(name, content.join(" "));
+    updateFile(name, content){
+        this.repository.updateFile(name, content);
     }
 
-    commit(message){
-        this.repository.commit(message.join(" "));
+    commitIdOfBranch(branchName){
+        return this.repository.branchList.commitIdOfBranch(branchName);
     }
+
 }
 
 export default Model;
